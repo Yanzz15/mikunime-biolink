@@ -73,7 +73,11 @@
                 <span class="brand-bar__mark-dot"></span>
                 Yanzz
             </span>
-            <span class="brand-bar__id">MV5 / 2025</span>
+            <button type="button" class="url-chip" id="urlChip" aria-label="Tap untuk copy link halaman">
+                <i class="fa-solid fa-link" aria-hidden="true"></i>
+                <span class="url-chip__text" id="urlText">/home</span>
+                <i class="fa-regular fa-clipboard url-chip__copy" aria-hidden="true"></i>
+            </button>
         </div>
 
         <!-- Hero -->
@@ -109,6 +113,25 @@
                 <span class="meta__item"><i class="fa-solid fa-circle-check"></i> Free</span>
             </div>
         </header>
+
+        <!-- Live stats -->
+        <section class="stats" aria-label="Live status">
+            <div class="stat">
+                <span class="stat__label">Now</span>
+                <span class="stat__value" id="clock">--:--:--</span>
+                <span class="stat__sub" id="dateline">— · WIB</span>
+            </div>
+            <div class="stat">
+                <span class="stat__label">Visitor</span>
+                <span class="stat__value" id="geoCity">Loading…</span>
+                <span class="stat__sub" id="geoMeta">—</span>
+            </div>
+            <div class="stat">
+                <span class="stat__label">Edge</span>
+                <span class="stat__value" id="edgeName">Vercel</span>
+                <span class="stat__sub" id="edgeRegion">global</span>
+            </div>
+        </section>
 
         <!-- Featured -->
         <section class="featured" aria-labelledby="featured-title">
@@ -200,6 +223,39 @@
                 <a href="https://t.me/yanzzga" class="social social--tg" target="_blank" rel="noopener" aria-label="Telegram" title="Telegram">
                     <i class="fa-brands fa-telegram"></i>
                 </a>
+            </div>
+        </section>
+
+        <!-- Music -->
+        <section class="player" aria-label="Music player">
+            <p class="section-label">
+                <span class="section-label__num">03</span>
+                <span>Music</span>
+                <span class="section-label__line"></span>
+            </p>
+            <div class="player__card">
+                <div class="player__display" id="playerDisplay" hidden>
+                    <iframe id="ytplayer" title="YouTube player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                </div>
+                <div class="player__empty" id="playerEmpty">
+                    <span class="player__empty-pulse"></span>
+                    <i class="fa-solid fa-music"></i>
+                    <span>Play apa hari ini?</span>
+                </div>
+                <form class="player__form" id="playerForm" autocomplete="off">
+                    <span class="player__form-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+                    <input type="search" id="playerInput" placeholder="Cari di YouTube atau paste URL…" aria-label="Cari musik di YouTube" />
+                    <button type="submit" class="player__form-btn" aria-label="Play">
+                        <i class="fa-solid fa-play"></i>
+                    </button>
+                </form>
+                <div class="player__presets" role="group" aria-label="Quick play">
+                    <button type="button" data-q="lofi anime hip hop radio">Lo-fi Anime</button>
+                    <button type="button" data-q="anime opening 2025 best">Anime OP 2025</button>
+                    <button type="button" data-q="hatsune miku magical mirai live">Miku Live</button>
+                    <button type="button" data-q="japanese city pop 80s playlist">City Pop</button>
+                </div>
+                <p class="player__hint" id="playerHint">Paste YouTube URL atau ketik judul lagu.</p>
             </div>
         </section>
 
