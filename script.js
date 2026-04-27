@@ -1,4 +1,4 @@
-/* Mikunime V5 — Bio Link interactions (v2) */
+/* Mikunime V5 — Bio Link interactions (v3) */
 (function () {
     "use strict";
 
@@ -10,18 +10,18 @@
     onReady(() => {
         const root = document.getElementById("biolink");
 
-        // Footer year
+        /* Footer year */
         const yearEl = document.getElementById("year");
         if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
-        // Initial fade-in
+        /* Initial fade-in */
         if (root) {
             requestAnimationFrame(() => root.classList.add("is-visible"));
         }
 
-        // Stagger fade-up
+        /* Stagger fade-up */
         const items = document.querySelectorAll(
-            ".profile, .featured, .links, .socials, .share-btn, .footer"
+            ".profile, .stats, .featured, .links, .socials-wrap, .share-btn, .footer"
         );
         items.forEach((el, i) => {
             el.classList.add("fade-up");
@@ -95,6 +95,19 @@
             featured.addEventListener("mouseleave", () => { featured.style.transform = ""; });
         }
 
+        /* Subtle parallax on background blobs (desktop only) */
+        if (matchMedia("(hover: hover)").matches && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            const blobs = document.querySelectorAll(".blob");
+            window.addEventListener("mousemove", (e) => {
+                const x = (e.clientX / window.innerWidth - 0.5) * 30;
+                const y = (e.clientY / window.innerHeight - 0.5) * 30;
+                blobs.forEach((b, i) => {
+                    const factor = (i + 1) * 0.5;
+                    b.style.transform = `translate3d(${x * factor}px, ${y * factor}px, 0)`;
+                });
+            }, { passive: true });
+        }
+
         /* Toast */
         const toastEl = document.getElementById("toast");
         const showToast = (msg) => {
@@ -128,7 +141,7 @@
         /* Console click log */
         document.querySelectorAll("a[href]").forEach((a) => {
             a.addEventListener("click", () => {
-                try { console.debug("[biolink] click →", a.href); } catch (_) {}
+                try { console.debug("[biolink] click \u2192", a.href); } catch (_) {}
             });
         });
 
@@ -139,8 +152,8 @@
             if (e.key === seq[idx]) {
                 idx++;
                 if (idx === seq.length) {
-                    document.documentElement.style.setProperty("--red-glow", "0 0 40px rgba(255,31,61,0.85), 0 0 100px rgba(255,31,61,0.45)");
-                    showToast("✦ Mode glow maksimal aktif");
+                    document.documentElement.style.setProperty("--red-glow", "0 0 40px rgba(255,35,72,0.85), 0 0 100px rgba(255,35,72,0.45)");
+                    showToast("\u2726 Mode glow maksimal aktif");
                     idx = 0;
                 }
             } else { idx = 0; }

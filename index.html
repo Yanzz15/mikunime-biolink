@@ -62,11 +62,13 @@
     </script>
 </head>
 <body>
-    <!-- Animated background blobs + particles -->
+    <!-- Animated background blobs + sakura particles + kana watermark -->
     <div class="bg-glow" aria-hidden="true">
         <span class="blob blob--one"></span>
         <span class="blob blob--two"></span>
         <span class="blob blob--three"></span>
+        <span class="kana-watermark">ミク</span>
+        <span class="kana-watermark kana-watermark--bottom">アニメ</span>
         <div class="particles">
             <span></span><span></span><span></span><span></span><span></span>
             <span></span><span></span><span></span><span></span><span></span>
@@ -78,12 +80,18 @@
     <main class="container" id="biolink">
         <!-- Header / Profile -->
         <header class="profile" aria-label="Profil pengguna">
-            <div class="profile__avatar-ring">
-                <div class="profile__avatar">
-                    <img src="assets/profile.jpg" alt="Foto profil Yan — admin Mikunime V5" loading="eager" decoding="async" />
+            <div class="profile__avatar-wrap">
+                <span class="profile__avatar-rays" aria-hidden="true"></span>
+                <div class="profile__avatar-ring">
+                    <div class="profile__avatar">
+                        <img src="assets/profile.jpg" alt="Foto profil Yan — admin Mikunime V5" loading="eager" decoding="async" />
+                    </div>
                 </div>
                 <span class="profile__status" title="Online">
                     <span class="profile__status-dot"></span>
+                </span>
+                <span class="profile__verified" title="Verified Admin Mikunime V5" aria-hidden="true">
+                    <i class="fa-solid fa-check"></i>
                 </span>
             </div>
 
@@ -100,8 +108,25 @@
             <div class="profile__badges" aria-hidden="true">
                 <span class="badge"><i class="fa-solid fa-circle-check"></i> Verified Admin</span>
                 <span class="badge"><i class="fa-solid fa-bolt"></i> Mikunime V5</span>
+                <span class="badge"><i class="fa-solid fa-heart"></i> Komunitas Aktif</span>
             </div>
         </header>
+
+        <!-- Stats strip -->
+        <section class="stats" aria-label="Highlight cepat">
+            <div class="stat">
+                <span class="stat__value">Sub Indo</span>
+                <span class="stat__label">Bahasa</span>
+            </div>
+            <div class="stat">
+                <span class="stat__value">Update Harian</span>
+                <span class="stat__label">Episode</span>
+            </div>
+            <div class="stat">
+                <span class="stat__value">Gratis</span>
+                <span class="stat__label">Akses</span>
+            </div>
+        </section>
 
         <!-- Featured Section -->
         <section class="featured" aria-labelledby="featured-title">
@@ -112,7 +137,7 @@
                 </span>
                 <span class="featured__text">
                     <span class="featured__title">Akses Website Mikunime V5</span>
-                    <span class="featured__sub">Tap di Sini</span>
+                    <span class="featured__sub">Online • Tap di Sini</span>
                 </span>
                 <span class="featured__arrow">
                     <i class="fa-solid fa-arrow-right-long"></i>
@@ -122,65 +147,75 @@
 
         <!-- Main Links -->
         <nav class="links" aria-label="Daftar link utama">
+            <p class="section-label" aria-hidden="true">
+                <span class="section-label__dot"></span>
+                Quick Access
+            </p>
             <ul class="links__list">
                 <li>
-                    <a href="https://chat.whatsapp.com/KSGYkPV4TPLKQ3u8evFwgF?mode=hqctcla" class="link-btn" target="_blank" rel="noopener">
+                    <a href="https://chat.whatsapp.com/KSGYkPV4TPLKQ3u8evFwgF?mode=hqctcla" class="link-btn link-btn--wa" target="_blank" rel="noopener">
                         <span class="link-btn__icon link-btn__icon--wa"><i class="fa-brands fa-whatsapp"></i></span>
                         <span class="link-btn__text">
                             <span class="link-btn__title">Gabung Grup WhatsApp</span>
                             <span class="link-btn__desc">Komunitas pecinta anime Mikunime</span>
                         </span>
-                        <i class="fa-solid fa-chevron-right link-btn__chev"></i>
+                        <span class="link-btn__chev"><i class="fa-solid fa-chevron-right"></i></span>
                     </a>
                 </li>
                 <li>
-                    <a href="https://whatsapp.com/channel/0029VbCQwRN1t90XMvgzU92q" class="link-btn" target="_blank" rel="noopener">
+                    <a href="https://whatsapp.com/channel/0029VbCQwRN1t90XMvgzU92q" class="link-btn link-btn--wa" target="_blank" rel="noopener">
                         <span class="link-btn__icon link-btn__icon--wa"><i class="fa-solid fa-bullhorn"></i></span>
                         <span class="link-btn__text">
                             <span class="link-btn__title">Saluran WhatsApp Mikunime</span>
                             <span class="link-btn__desc">Update episode &amp; pengumuman terbaru</span>
                         </span>
-                        <i class="fa-solid fa-chevron-right link-btn__chev"></i>
+                        <span class="link-btn__chev"><i class="fa-solid fa-chevron-right"></i></span>
                     </a>
                 </li>
                 <li>
-                    <a href="https://wa.me/6285320544198" class="link-btn" target="_blank" rel="noopener">
+                    <a href="https://wa.me/6285320544198" class="link-btn link-btn--wa" target="_blank" rel="noopener">
                         <span class="link-btn__icon link-btn__icon--wa"><i class="fa-brands fa-whatsapp"></i></span>
                         <span class="link-btn__text">
                             <span class="link-btn__title">Chat Admin via WhatsApp</span>
                             <span class="link-btn__desc">085320544198 — request &amp; bantuan</span>
                         </span>
-                        <i class="fa-solid fa-chevron-right link-btn__chev"></i>
+                        <span class="link-btn__chev"><i class="fa-solid fa-chevron-right"></i></span>
                     </a>
                 </li>
                 <li>
-                    <a href="https://t.me/yanzzga" class="link-btn" target="_blank" rel="noopener">
+                    <a href="https://t.me/yanzzga" class="link-btn link-btn--tg" target="_blank" rel="noopener">
                         <span class="link-btn__icon link-btn__icon--tg"><i class="fa-brands fa-telegram"></i></span>
                         <span class="link-btn__text">
                             <span class="link-btn__title">Chat Admin via Telegram</span>
                             <span class="link-btn__desc">@yanzzga — direct message</span>
                         </span>
-                        <i class="fa-solid fa-chevron-right link-btn__chev"></i>
+                        <span class="link-btn__chev"><i class="fa-solid fa-chevron-right"></i></span>
                     </a>
                 </li>
             </ul>
         </nav>
 
         <!-- Social Icons -->
-        <section class="socials" aria-label="Sosial media">
-            <h2 class="visually-hidden">Sosial Media</h2>
-            <a href="https://mikunime.eu.cc" class="social" target="_blank" rel="noopener" aria-label="Website Mikunime V5" title="Website Mikunime V5">
-                <i class="fa-solid fa-globe"></i>
-            </a>
-            <a href="https://chat.whatsapp.com/KSGYkPV4TPLKQ3u8evFwgF?mode=hqctcla" class="social" target="_blank" rel="noopener" aria-label="Grup WhatsApp" title="Grup WhatsApp">
-                <i class="fa-brands fa-whatsapp"></i>
-            </a>
-            <a href="https://whatsapp.com/channel/0029VbCQwRN1t90XMvgzU92q" class="social" target="_blank" rel="noopener" aria-label="Saluran WhatsApp" title="Saluran WhatsApp">
-                <i class="fa-solid fa-bullhorn"></i>
-            </a>
-            <a href="https://t.me/yanzzga" class="social" target="_blank" rel="noopener" aria-label="Telegram" title="Telegram @yanzzga">
-                <i class="fa-brands fa-telegram"></i>
-            </a>
+        <section class="socials-wrap" aria-label="Sosial media">
+            <p class="section-label" aria-hidden="true">
+                <span class="section-label__dot"></span>
+                Connect
+            </p>
+            <div class="socials">
+                <h2 class="visually-hidden">Sosial Media</h2>
+                <a href="https://mikunime.eu.cc" class="social" target="_blank" rel="noopener" aria-label="Website Mikunime V5" title="Website Mikunime V5">
+                    <i class="fa-solid fa-globe"></i>
+                </a>
+                <a href="https://chat.whatsapp.com/KSGYkPV4TPLKQ3u8evFwgF?mode=hqctcla" class="social social--wa" target="_blank" rel="noopener" aria-label="Grup WhatsApp" title="Grup WhatsApp">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+                <a href="https://whatsapp.com/channel/0029VbCQwRN1t90XMvgzU92q" class="social social--wa" target="_blank" rel="noopener" aria-label="Saluran WhatsApp" title="Saluran WhatsApp">
+                    <i class="fa-solid fa-bullhorn"></i>
+                </a>
+                <a href="https://t.me/yanzzga" class="social social--tg" target="_blank" rel="noopener" aria-label="Telegram" title="Telegram @yanzzga">
+                    <i class="fa-brands fa-telegram"></i>
+                </a>
+            </div>
         </section>
 
         <!-- Quick action: Share -->
@@ -190,6 +225,8 @@
         </button>
 
         <footer class="footer">
+            <div class="footer__divider" aria-hidden="true"></div>
+            <p>Made with <span class="footer__heart" aria-hidden="true">&#10084;</span> by Yan</p>
             <p>&copy; <span id="year"></span> Yan — Powered by <a href="https://mikunime.eu.cc" target="_blank" rel="noopener">Mikunime V5</a></p>
         </footer>
     </main>
