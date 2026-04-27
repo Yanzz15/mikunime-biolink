@@ -718,6 +718,258 @@ button { font: inherit; cursor: pointer; }
 }
 .fade-up.is-in { opacity: 1; transform: translateY(0); }
 
+/* ----- URL chip (brand-bar right) ----- */
+.url-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    padding: 4px 10px 4px 8px;
+    border-radius: var(--radius-pill);
+    font-family: "JetBrains Mono", "SF Mono", ui-monospace, monospace;
+    font-size: 0.66rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: none;
+    cursor: pointer;
+    max-width: 60%;
+    overflow: hidden;
+    transition: all var(--t-fast) var(--easing);
+}
+.url-chip i { color: var(--accent); font-size: 0.62rem; flex-shrink: 0; }
+.url-chip__text {
+    color: var(--text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+}
+.url-chip__copy { color: var(--text-mute) !important; opacity: 0.7; }
+.url-chip:hover {
+    border-color: var(--border-accent);
+    background: var(--surface-strong);
+    box-shadow: 0 0 12px rgba(6, 212, 214, 0.18);
+}
+.url-chip:hover .url-chip__copy { color: var(--accent) !important; opacity: 1; }
+.url-chip.is-copied {
+    border-color: var(--border-accent);
+    background: rgba(6, 212, 214, 0.1);
+    color: var(--accent-soft);
+}
+
+/* ----- Live stats card ----- */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+.stat {
+    background: var(--surface);
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+.stat__label {
+    font-family: "JetBrains Mono", "SF Mono", ui-monospace, monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    font-weight: 500;
+}
+.stat__value {
+    font-family: "JetBrains Mono", "SF Mono", ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+#clock { color: var(--accent); }
+.stat__sub {
+    font-size: 0.66rem;
+    color: var(--text-mute);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ----- Music player ----- */
+.player__card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background:
+        linear-gradient(180deg, rgba(15, 19, 48, 0.6) 0%, rgba(13, 16, 39, 0.4) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: hidden;
+}
+.player__display {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 0 0 1px var(--border-accent), 0 8px 28px rgba(0, 0, 0, 0.4);
+}
+.player__display iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+.player__empty {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    border-radius: var(--radius-md);
+    background:
+        radial-gradient(circle at 30% 30%, rgba(6, 212, 214, 0.18), transparent 55%),
+        radial-gradient(circle at 80% 70%, rgba(120, 60, 200, 0.12), transparent 55%),
+        var(--bg-deep);
+    border: 1px dashed var(--border-strong);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--text-dim);
+    font-size: 0.86rem;
+    overflow: hidden;
+}
+.player__empty i {
+    font-size: 1.6rem;
+    color: var(--accent);
+    opacity: 0.85;
+}
+.player__empty-pulse {
+    position: absolute;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--accent-glow), transparent 60%);
+    filter: blur(40px);
+    animation: pulse 4s ease-in-out infinite;
+    pointer-events: none;
+}
+@keyframes pulse {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50%      { opacity: 0.7; transform: scale(1.15); }
+}
+
+.player__form {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    padding: 4px 4px 4px 12px;
+    transition: border-color var(--t-fast) var(--easing), box-shadow var(--t-fast) var(--easing);
+}
+.player__form:focus-within {
+    border-color: var(--border-accent);
+    box-shadow: 0 0 14px rgba(6, 212, 214, 0.2);
+}
+.player__form-icon {
+    color: var(--text-mute);
+    font-size: 0.78rem;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+}
+.player__form input {
+    flex: 1;
+    background: transparent;
+    border: 0;
+    color: var(--text);
+    padding: 8px 4px;
+    font-family: inherit;
+    font-size: 0.86rem;
+    outline: none;
+    min-width: 0;
+}
+.player__form input::placeholder { color: var(--text-mute); }
+.player__form input::-webkit-search-cancel-button { -webkit-appearance: none; }
+.player__form-btn {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    border: 0;
+    background: var(--accent);
+    color: var(--bg-deep);
+    display: grid;
+    place-items: center;
+    font-size: 0.78rem;
+    flex-shrink: 0;
+    transition: all var(--t-fast) var(--easing);
+}
+.player__form-btn:hover,
+.player__form-btn:focus-visible {
+    background: var(--accent-bright);
+    transform: scale(1.05);
+    box-shadow: 0 6px 18px rgba(6, 212, 214, 0.45);
+    outline: none;
+}
+.player__form-btn.is-loading {
+    background: var(--surface-strong);
+    color: var(--text-mute);
+    pointer-events: none;
+}
+.player__form-btn.is-loading i {
+    animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.player__presets {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+.player__presets button {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: 0.72rem;
+    font-weight: 500;
+    padding: 5px 11px;
+    border-radius: var(--radius-pill);
+    transition: all var(--t-fast) var(--easing);
+    font-family: inherit;
+}
+.player__presets button:hover,
+.player__presets button:focus-visible {
+    color: var(--accent);
+    border-color: var(--border-accent);
+    background: rgba(6, 212, 214, 0.06);
+    outline: none;
+}
+
+.player__hint {
+    margin: 0;
+    font-size: 0.7rem;
+    color: var(--text-mute);
+    text-align: center;
+    font-family: "JetBrains Mono", "SF Mono", ui-monospace, monospace;
+    letter-spacing: 0.02em;
+}
+.player__hint.is-error { color: var(--warm); }
+
 /* ----- Reduced motion ----- */
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
