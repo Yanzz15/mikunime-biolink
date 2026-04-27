@@ -205,24 +205,96 @@
         const quoteCount = $("quoteCount");
 
         if (quoteCard && quoteText && quoteChar && quoteAnime) {
-            // Hand-picked offline fallback (used only if all APIs fail)
+            // Hand-picked offline fallback (sudah dalam Bahasa Indonesia)
             const fallbackQuotes = [
-                { quote: "If you don't take risks, you can't create a future.", character: "Monkey D. Luffy", show: "One Piece" },
-                { quote: "The world isn't perfect. But it's there for us, doing the best it can.", character: "Roy Mustang", show: "Fullmetal Alchemist: Brotherhood" },
-                { quote: "Whatever you lose, you'll find it again. But what you throw away you'll never get back.", character: "Kenshin Himura", show: "Rurouni Kenshin" },
-                { quote: "A lesson without pain is meaningless.", character: "Edward Elric", show: "Fullmetal Alchemist" },
-                { quote: "People's lives don't end when they die, it ends when they lose faith.", character: "Itachi Uchiha", show: "Naruto" },
-                { quote: "Hard work is worthless for those that don't believe in themselves.", character: "Naruto Uzumaki", show: "Naruto" },
-                { quote: "Sometimes I do feel like I'm a failure. But that doesn't mean I'm gonna stop trying.", character: "Yamaguchi Tadashi", show: "Haikyuu!!" },
-                { quote: "When you give up, that's when the game ends.", character: "Mitsuyoshi Anzai", show: "Slam Dunk" },
-                { quote: "Reject common sense to make the impossible possible.", character: "Simon", show: "Tengen Toppa Gurren Lagann" },
-                { quote: "Even if I'm weak, I have my friends.", character: "Asta", show: "Black Clover" }
+                { quote: "Kalau lo nggak berani ambil resiko, lo nggak akan pernah punya masa depan.", character: "Monkey D. Luffy", show: "One Piece" },
+                { quote: "Dunia ini nggak sempurna. Tapi dia ada buat kita, ngelakuin yang terbaik semampunya.", character: "Roy Mustang", show: "Fullmetal Alchemist: Brotherhood" },
+                { quote: "Apapun yang lo hilang, suatu saat bisa lo temuin lagi. Tapi yang lo buang, nggak akan pernah balik.", character: "Kenshin Himura", show: "Rurouni Kenshin" },
+                { quote: "Pelajaran tanpa rasa sakit itu nggak ada artinya.", character: "Edward Elric", show: "Fullmetal Alchemist" },
+                { quote: "Hidup seseorang nggak berakhir saat dia mati — berakhir saat dia kehilangan iman.", character: "Itachi Uchiha", show: "Naruto" },
+                { quote: "Kerja keras nggak ada gunanya buat orang yang nggak percaya sama dirinya sendiri.", character: "Naruto Uzumaki", show: "Naruto" },
+                { quote: "Kadang gw ngerasa kayak orang gagal. Tapi itu bukan alasan buat berhenti nyoba.", character: "Yamaguchi Tadashi", show: "Haikyuu!!" },
+                { quote: "Saat lo nyerah, di situlah pertandingan benar-benar selesai.", character: "Mitsuyoshi Anzai", show: "Slam Dunk" },
+                { quote: "Tolak akal sehat — biar yang nggak mungkin jadi mungkin.", character: "Simon", show: "Tengen Toppa Gurren Lagann" },
+                { quote: "Walau gw lemah, gw punya temen-temen gw.", character: "Asta", show: "Black Clover" },
+                { quote: "Yang membuat hidup berarti adalah orang-orang yang lo temui di sepanjang jalan.", character: "Gintoki Sakata", show: "Gintama" },
+                { quote: "Kalau lo nggak bisa ngapain-ngapain, paling nggak jangan nyusahin orang lain.", character: "L Lawliet", show: "Death Note" },
+                { quote: "Mimpi nggak akan pernah datang sendiri — lo harus jemput dia.", character: "Senku Ishigami", show: "Dr. Stone" },
+                { quote: "Berdiri di tepi jurang dan tetap melangkah maju — itu yang namanya keberanian.", character: "Eren Yeager", show: "Attack on Titan" },
+                { quote: "Lo hanya akan kuat saat lo udah nggak takut sama kelemahan lo sendiri.", character: "Saitama", show: "One Punch Man" }
             ];
 
             let inflight = false;
             let cycle = null;       // setInterval handle
             let progressTimer = null;
             const CYCLE_MS = 12000;
+
+            // ---- Translation (en -> id) with localStorage cache ----
+            const TR_KEY = "yanzz_tr_idv1";
+            let trCache = {};
+            try { trCache = JSON.parse(localStorage.getItem(TR_KEY) || "{}"); } catch (_) { trCache = {}; }
+            const saveCache = () => {
+                try {
+                    // Cap cache at ~500 entries
+                    const keys = Object.keys(trCache);
+                    if (keys.length > 500) {
+                        const trim = keys.slice(0, keys.length - 500);
+                        trim.forEach((k) => delete trCache[k]);
+                    }
+                    localStorage.setItem(TR_KEY, JSON.stringify(trCache));
+                } catch (_) { /* ignore */ }
+            };
+
+            const looksIndonesian = (s) => {
+                // Heuristic: if quote already has common ID stopwords, skip translation
+                const t = " " + s.toLowerCase() + " ";
+                const hits = [" yang ", " dan ", " gak ", " ga ", " tidak ", " saya ", " kita ", " kamu ", " gue ", " lo ", " adalah ", " jadi ", " akan ", " buat ", " untuk "];
+                return hits.some((w) => t.includes(w));
+            };
+
+            const translate = async (text) => {
+                if (!text) return text;
+                if (trCache[text]) return trCache[text];
+                if (looksIndonesian(text)) { trCache[text] = text; saveCache(); return text; }
+
+                // Primary: MyMemory (CORS allowed, free)
+                try {
+                    const ctl = new AbortController();
+                    const t = setTimeout(() => ctl.abort(), 5000);
+                    const url = "https://api.mymemory.translated.net/get?langpair=en|id&q=" + encodeURIComponent(text);
+                    const r = await fetch(url, { signal: ctl.signal });
+                    clearTimeout(t);
+                    if (r.ok) {
+                        const j = await r.json();
+                        const out = j && j.responseData && j.responseData.translatedText;
+                        if (out && typeof out === "string" && out.length > 0 && !/MYMEMORY WARNING/i.test(out)) {
+                            trCache[text] = out;
+                            saveCache();
+                            return out;
+                        }
+                    }
+                } catch (_) { /* fall through */ }
+
+                // Secondary: SimplyTranslate (Google scraper, CORS allowed)
+                try {
+                    const ctl = new AbortController();
+                    const t = setTimeout(() => ctl.abort(), 5000);
+                    const url = "https://simplytranslate.org/api/translate/?engine=google&from=en&to=id&text=" + encodeURIComponent(text);
+                    const r = await fetch(url, { signal: ctl.signal });
+                    clearTimeout(t);
+                    if (r.ok) {
+                        const j = await r.json();
+                        const out = j && j.translated_text;
+                        if (out && typeof out === "string" && out.length > 0) {
+                            trCache[text] = out;
+                            saveCache();
+                            return out;
+                        }
+                    }
+                } catch (_) { /* fall through */ }
+
+                return text; // keep English as last resort
+            };
 
             const setQuote = (q) => {
                 quoteCard.classList.add("is-fading");
@@ -276,9 +348,9 @@
                     }
                 } catch (_) { /* fall through */ }
 
-                // Tertiary: local fallback
+                // Tertiary: local fallback (sudah ID, ga perlu translate)
                 const f = fallbackQuotes[Math.floor(Math.random() * fallbackQuotes.length)];
-                return { ...f, source: "local" };
+                return { ...f, source: "local", _skipTranslate: true };
             };
 
             const startProgress = () => {
@@ -299,12 +371,15 @@
                 if (quoteRefresh) quoteRefresh.classList.add("is-loading");
                 try {
                     const q = await fetchQuote();
+                    if (!q._skipTranslate) {
+                        q.quote = await translate(q.quote);
+                    }
                     setQuote(q);
                     const sourceEl = $("quoteSource");
-                    if (sourceEl && q.source) sourceEl.textContent = q.source;
+                    if (sourceEl && q.source) sourceEl.textContent = q.source + " · ID";
                     if (quoteCount && q.source === "yurippe") quoteCount.textContent = "7k+";
                     if (quoteCount && q.source === "animechan") quoteCount.textContent = "10k+";
-                    if (quoteCount && q.source === "local") quoteCount.textContent = "10";
+                    if (quoteCount && q.source === "local") quoteCount.textContent = "15";
                     startProgress();
                 } finally {
                     inflight = false;
