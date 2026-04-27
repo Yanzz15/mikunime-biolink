@@ -970,6 +970,130 @@ button { font: inherit; cursor: pointer; }
 }
 .player__hint.is-error { color: var(--warm); }
 
+/* ----- Anime quote card ----- */
+.quote-card {
+    position: relative;
+    padding: 18px 18px 14px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    background:
+        linear-gradient(160deg, rgba(6, 212, 214, 0.06) 0%, transparent 60%),
+        linear-gradient(180deg, rgba(15, 19, 48, 0.55) 0%, rgba(13, 16, 39, 0.35) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    overflow: hidden;
+    transition: opacity 320ms var(--easing), transform 320ms var(--easing);
+}
+.quote-card.is-fading { opacity: 0; transform: translateY(4px); }
+
+.quote-card__mark {
+    position: absolute;
+    top: -22px;
+    left: 12px;
+    font-family: "Space Grotesk", "Inter", serif;
+    font-size: 6rem;
+    line-height: 1;
+    color: var(--accent);
+    opacity: 0.18;
+    pointer-events: none;
+    user-select: none;
+}
+
+.quote-card__text {
+    margin: 0 0 12px;
+    font-family: "Space Grotesk", "Inter", sans-serif;
+    font-size: 1.02rem;
+    line-height: 1.5;
+    font-weight: 500;
+    color: var(--text);
+    letter-spacing: -0.01em;
+    position: relative;
+    z-index: 1;
+}
+
+.quote-card__meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    position: relative;
+    z-index: 1;
+}
+.quote-card__char {
+    font-weight: 600;
+    color: var(--accent);
+    font-family: "Space Grotesk", "Inter", sans-serif;
+}
+.quote-card__sep {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--text-mute);
+    opacity: 0.6;
+}
+.quote-card__anime {
+    color: var(--text-dim);
+    font-style: italic;
+}
+
+.quote-card__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+    font-size: 0.66rem;
+    color: var(--text-mute);
+    position: relative;
+    z-index: 1;
+}
+.quote-card__source {
+    font-family: "JetBrains Mono", "SF Mono", ui-monospace, monospace;
+    letter-spacing: 0.04em;
+}
+.quote-card__source span {
+    color: var(--accent);
+}
+
+.quote-card__refresh {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 5px 11px;
+    border-radius: var(--radius-pill);
+    transition: all var(--t-fast) var(--easing);
+    font-family: inherit;
+}
+.quote-card__refresh:hover,
+.quote-card__refresh:focus-visible {
+    color: var(--accent);
+    border-color: var(--border-accent);
+    background: rgba(6, 212, 214, 0.06);
+    outline: none;
+}
+.quote-card__refresh.is-loading i {
+    animation: spin 0.8s linear infinite;
+}
+
+.quote-card__progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-bright));
+    width: 0%;
+    transition: width 50ms linear;
+    border-radius: 0 2px 0 0;
+}
+
 /* ----- Reduced motion ----- */
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
