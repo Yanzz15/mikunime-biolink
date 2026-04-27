@@ -1,29 +1,33 @@
 /* =========================================
-   Yanzz · Bio Link — refined edition
+   Yanzz · Bio Link — midnight cyan edition
    ========================================= */
 
 :root {
-    --bg: #0a0a0c;
-    --bg-deep: #060608;
-    --bg-soft: #131316;
+    --bg: #07091a;
+    --bg-deep: #04050f;
+    --bg-soft: #0d1027;
+    --bg-card: #0f1330;
 
     --surface: rgba(255, 255, 255, 0.035);
-    --surface-hover: rgba(255, 255, 255, 0.06);
+    --surface-strong: rgba(255, 255, 255, 0.06);
+    --surface-hover: rgba(6, 212, 214, 0.06);
     --border: rgba(255, 255, 255, 0.08);
     --border-strong: rgba(255, 255, 255, 0.14);
-    --border-accent: rgba(239, 68, 68, 0.35);
+    --border-accent: rgba(6, 212, 214, 0.32);
 
-    --accent: #ef4444;
-    --accent-deep: #b91c1c;
-    --accent-soft: #fecaca;
-    --accent-glow: rgba(239, 68, 68, 0.28);
+    --accent: #06d4d6;
+    --accent-bright: #1ce7ec;
+    --accent-deep: #008a8c;
+    --accent-soft: #b9fdfe;
+    --accent-glow: rgba(6, 212, 214, 0.32);
 
+    --warm: #ffb547;
     --wa: #25d366;
     --tg: #2aabee;
 
-    --text: #ededee;
-    --text-dim: #b0b0b8;
-    --text-mute: #76767f;
+    --text: #f0f4f8;
+    --text-dim: #a4adbf;
+    --text-mute: #6f7787;
 
     --radius-sm: 10px;
     --radius-md: 14px;
@@ -44,7 +48,7 @@ html {
 }
 body {
     min-height: 100svh;
-    font-family: "Inter", "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     color: var(--text);
     background: var(--bg);
     line-height: 1.55;
@@ -60,7 +64,7 @@ button { font: inherit; cursor: pointer; }
 
 ::selection {
     background: var(--accent);
-    color: #fff;
+    color: var(--bg-deep);
 }
 
 .visually-hidden {
@@ -73,7 +77,7 @@ button { font: inherit; cursor: pointer; }
     border: 0;
 }
 
-/* ----- Background: subtle aurora + grain ----- */
+/* ----- Background: midnight aurora + grain ----- */
 .bg-glow {
     position: fixed;
     inset: 0;
@@ -84,30 +88,30 @@ button { font: inherit; cursor: pointer; }
 .bg-glow::before {
     content: "";
     position: absolute;
-    top: -30%;
+    top: -25%;
     left: 50%;
-    width: 110%;
-    height: 80%;
+    width: 130%;
+    height: 90%;
     transform: translateX(-50%);
     background:
-        radial-gradient(ellipse 60% 50% at 50% 30%, rgba(239, 68, 68, 0.18), transparent 65%),
-        radial-gradient(ellipse 70% 50% at 30% 60%, rgba(185, 28, 28, 0.12), transparent 65%),
-        radial-gradient(ellipse 50% 40% at 80% 50%, rgba(120, 53, 15, 0.08), transparent 65%);
+        radial-gradient(ellipse 55% 50% at 30% 20%, rgba(6, 212, 214, 0.22), transparent 65%),
+        radial-gradient(ellipse 50% 40% at 75% 30%, rgba(80, 30, 180, 0.16), transparent 65%),
+        radial-gradient(ellipse 60% 50% at 50% 70%, rgba(6, 90, 130, 0.12), transparent 65%);
     filter: blur(40px);
-    opacity: 0.9;
+    opacity: 0.95;
 }
 .bg-glow::after {
     content: "";
     position: absolute;
     inset: 0;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
     background-size: 200px 200px;
     mix-blend-mode: overlay;
-    opacity: 0.6;
+    opacity: 0.55;
     pointer-events: none;
 }
 
-/* Subtle ambient orb - just one, behaves like a slow breath */
+/* Single ambient orb — slow breath */
 .orb {
     position: absolute;
     width: 520px; height: 520px;
@@ -116,12 +120,23 @@ button { font: inherit; cursor: pointer; }
     border-radius: 50%;
     background: radial-gradient(circle, var(--accent), transparent 60%);
     filter: blur(120px);
-    opacity: 0.35;
+    opacity: 0.28;
     animation: breathe 8s ease-in-out infinite;
 }
 @keyframes breathe {
-    0%, 100% { opacity: 0.32; transform: translateX(-50%) scale(1); }
-    50%      { opacity: 0.42; transform: translateX(-50%) scale(1.05); }
+    0%, 100% { opacity: 0.24; transform: translateX(-50%) scale(1); }
+    50%      { opacity: 0.34; transform: translateX(-50%) scale(1.05); }
+}
+
+/* Subtle scanline accent over hero */
+.scanline {
+    position: absolute;
+    top: 30%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-glow), transparent);
+    opacity: 0.5;
 }
 
 /* ----- Container ----- */
@@ -150,43 +165,41 @@ button { font: inherit; cursor: pointer; }
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     color: var(--text-mute);
-    letter-spacing: 0.12em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     font-weight: 600;
-    margin-bottom: -8px;
+    margin-bottom: -10px;
 }
 .brand-bar__mark {
     display: inline-flex;
     align-items: center;
     gap: 8px;
     color: var(--text);
+    font-family: "Space Grotesk", "Inter", sans-serif;
+    letter-spacing: 0.04em;
+    text-transform: none;
+    font-size: 0.82rem;
+    font-weight: 600;
 }
-.brand-bar__mark::before {
-    content: "";
-    width: 8px; height: 8px;
-    border-radius: 2px;
+.brand-bar__mark-dot {
+    width: 9px; height: 9px;
     background: var(--accent);
-    box-shadow: 0 0 10px var(--accent-glow);
+    border-radius: 2px;
+    box-shadow: 0 0 12px var(--accent-glow);
     transform: rotate(45deg);
+    flex-shrink: 0;
 }
-.brand-bar__live {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-}
-.brand-bar__live::before {
-    content: "";
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: #2bff7c;
-    box-shadow: 0 0 8px rgba(43, 255, 124, 0.7);
-    animation: livePulse 2s ease-in-out infinite;
-}
-@keyframes livePulse {
-    0%, 100% { opacity: 1; }
-    50%      { opacity: 0.55; }
+.brand-bar__id {
+    color: var(--text-mute);
+    font-family: "JetBrains Mono", "SF Mono", ui-monospace, monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.18em;
+    border: 1px solid var(--border);
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: var(--surface);
 }
 
 /* ----- Hero ----- */
@@ -196,7 +209,7 @@ button { font: inherit; cursor: pointer; }
     align-items: center;
     text-align: center;
     gap: 14px;
-    padding-top: 4px;
+    padding: 8px 0 4px;
 }
 
 .avatar {
@@ -204,7 +217,17 @@ button { font: inherit; cursor: pointer; }
     width: 116px; height: 116px;
     border-radius: 50%;
     padding: 2px;
-    background: linear-gradient(150deg, rgba(239, 68, 68, 0.7), rgba(255, 255, 255, 0.05) 40%, rgba(239, 68, 68, 0.4));
+    background: linear-gradient(150deg, var(--accent) 0%, rgba(255, 255, 255, 0.06) 45%, var(--accent-deep) 100%);
+}
+.avatar::before {
+    content: "";
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--accent-glow), transparent 65%);
+    filter: blur(14px);
+    z-index: -1;
+    opacity: 0.55;
 }
 .avatar__inner {
     width: 100%; height: 100%;
@@ -232,7 +255,7 @@ button { font: inherit; cursor: pointer; }
 }
 
 .hero__name {
-    font-family: "Space Grotesk", "Inter", "Poppins", sans-serif;
+    font-family: "Space Grotesk", "Inter", sans-serif;
     margin: 6px 0 0;
     font-size: clamp(2rem, 4vw + 1rem, 2.4rem);
     font-weight: 700;
@@ -241,15 +264,15 @@ button { font: inherit; cursor: pointer; }
     line-height: 1.1;
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
 }
 .hero__name-mark {
     display: inline-block;
     width: 10px; height: 10px;
     background: var(--accent);
     border-radius: 2px;
-    transform: rotate(45deg) translateY(-4px);
-    box-shadow: 0 0 14px var(--accent-glow);
+    transform: rotate(45deg) translateY(-3px);
+    box-shadow: 0 0 16px var(--accent-glow);
 }
 
 .hero__role {
@@ -263,25 +286,51 @@ button { font: inherit; cursor: pointer; }
     color: var(--text);
     font-weight: 600;
 }
+.hero__role-accent {
+    color: var(--accent);
+    font-weight: 500;
+}
 
-.hero__typed {
+/* Typed pill — fixed slot to prevent layout shift */
+.hero__typed-stage {
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 2px;
+}
+.hero__typed-pill {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
-    font-size: 0.86rem;
-    color: var(--text-mute);
+    gap: 6px;
+    font-size: 0.84rem;
+    color: var(--text-dim);
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius-pill);
-    padding: 5px 14px;
+    padding: 6px 16px;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    margin-top: 4px;
-    min-height: 28px;
+    height: 30px;
+    max-width: min(360px, 90vw);
+    white-space: nowrap;
+    overflow: hidden;
+}
+.hero__typed-pill::before {
+    content: "";
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent-glow);
+    flex-shrink: 0;
 }
 .hero__typed-text {
     color: var(--text);
     font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
 }
 .hero__typed-caret {
     display: inline-block;
@@ -289,11 +338,12 @@ button { font: inherit; cursor: pointer; }
     height: 1em;
     background: var(--accent);
     margin-left: 2px;
+    flex-shrink: 0;
     animation: blink 1.05s steps(2) infinite;
 }
 @keyframes blink { 50% { opacity: 0; } }
 
-/* ----- Quick meta line ----- */
+/* Meta line */
 .meta {
     display: flex;
     justify-content: center;
@@ -303,7 +353,7 @@ button { font: inherit; cursor: pointer; }
     color: var(--text-mute);
     font-size: 0.78rem;
     font-weight: 500;
-    margin-top: 4px;
+    margin-top: 2px;
 }
 .meta__item {
     display: inline-flex;
@@ -325,13 +375,21 @@ button { font: inherit; cursor: pointer; }
 .section-label {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     font-size: 0.68rem;
     font-weight: 600;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--text-mute);
-    margin: 4px 4px 0;
+    margin: 6px 4px 0;
+}
+.section-label__num {
+    color: var(--accent);
+    font-family: "JetBrains Mono", "SF Mono", ui-monospace, monospace;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    font-size: 0.7rem;
+    text-transform: none;
 }
 .section-label__line {
     flex: 1;
@@ -344,7 +402,7 @@ button { font: inherit; cursor: pointer; }
     position: relative;
     border-radius: var(--radius-lg);
     padding: 1px;
-    background: linear-gradient(140deg, rgba(239, 68, 68, 0.55), rgba(255, 255, 255, 0.04) 45%, rgba(239, 68, 68, 0.25));
+    background: linear-gradient(140deg, var(--accent) 0%, rgba(255, 255, 255, 0.05) 45%, var(--accent-deep) 100%);
     transition: transform var(--t-base) var(--easing), box-shadow var(--t-base) var(--easing);
 }
 .featured__btn {
@@ -355,8 +413,8 @@ button { font: inherit; cursor: pointer; }
     padding: 18px;
     border-radius: calc(var(--radius-lg) - 1px);
     background:
-        radial-gradient(120% 200% at 100% 0%, rgba(239, 68, 68, 0.18), transparent 55%),
-        linear-gradient(180deg, #16161a 0%, #0e0e10 100%);
+        radial-gradient(120% 200% at 100% 0%, rgba(6, 212, 214, 0.18), transparent 55%),
+        linear-gradient(180deg, var(--bg-card) 0%, var(--bg-soft) 100%);
     color: var(--text);
     border: 0;
     position: relative;
@@ -366,14 +424,14 @@ button { font: inherit; cursor: pointer; }
     content: "";
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 100% 0%, rgba(239, 68, 68, 0.18), transparent 50%);
+    background: radial-gradient(circle at 100% 0%, rgba(6, 212, 214, 0.22), transparent 55%);
     opacity: 0;
     transition: opacity var(--t-base) var(--easing);
     pointer-events: none;
 }
 .featured:hover {
     transform: translateY(-2px);
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(239, 68, 68, 0.15);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--border-accent), 0 0 28px rgba(6, 212, 214, 0.18);
 }
 .featured:hover .featured__btn::after { opacity: 1; }
 
@@ -383,10 +441,10 @@ button { font: inherit; cursor: pointer; }
     display: grid;
     place-items: center;
     background: var(--accent);
-    color: #fff;
+    color: var(--bg-deep);
     border-radius: 12px;
     font-size: 16px;
-    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+    box-shadow: 0 6px 20px rgba(6, 212, 214, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.08) inset;
 }
 .featured__text {
     flex: 1;
@@ -413,6 +471,7 @@ button { font: inherit; cursor: pointer; }
     font-size: 0.78rem;
     color: var(--text-mute);
     margin-top: 2px;
+    font-family: "JetBrains Mono", "SF Mono", ui-monospace, monospace;
     font-feature-settings: "tnum";
 }
 .featured__arrow {
@@ -429,7 +488,7 @@ button { font: inherit; cursor: pointer; }
 .featured:hover .featured__arrow {
     transform: translateX(3px);
     background: var(--accent);
-    color: #fff;
+    color: var(--bg-deep);
     border-color: transparent;
 }
 
@@ -480,7 +539,7 @@ button { font: inherit; cursor: pointer; }
     place-items: center;
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.04);
-    color: var(--text-dim);
+    color: var(--accent);
     font-size: 15px;
     border: 1px solid var(--border);
     transition: all var(--t-fast) var(--easing);
@@ -544,7 +603,7 @@ button { font: inherit; cursor: pointer; }
     justify-content: center;
     gap: 10px;
     flex-wrap: wrap;
-    margin-top: 2px;
+    margin-top: 4px;
 }
 .social {
     width: 42px; height: 42px;
@@ -560,13 +619,14 @@ button { font: inherit; cursor: pointer; }
 .social:hover,
 .social:focus-visible {
     transform: translateY(-2px);
-    background: var(--text);
-    color: var(--bg);
+    background: var(--accent);
+    color: var(--bg-deep);
     border-color: transparent;
+    box-shadow: 0 8px 22px rgba(6, 212, 214, 0.4);
     outline: none;
 }
-.social--wa:hover { background: var(--wa); color: #fff; }
-.social--tg:hover { background: var(--tg); color: #fff; }
+.social--wa:hover { background: var(--wa); color: #fff; box-shadow: 0 8px 22px rgba(37, 211, 102, 0.4); }
+.social--tg:hover { background: var(--tg); color: #fff; box-shadow: 0 8px 22px rgba(42, 171, 238, 0.4); }
 
 /* ----- Share ----- */
 .share-btn {
@@ -589,7 +649,8 @@ button { font: inherit; cursor: pointer; }
 .share-btn:focus-visible {
     color: var(--text);
     background: var(--surface);
-    border-color: var(--border-strong);
+    border-color: var(--border-accent);
+    box-shadow: 0 0 14px rgba(6, 212, 214, 0.18);
     outline: none;
 }
 .share-btn i { color: var(--text-mute); transition: color var(--t-fast) var(--easing); }
@@ -630,13 +691,13 @@ button { font: inherit; cursor: pointer; }
     bottom: 24px;
     transform: translate(-50%, 16px);
     padding: 9px 16px;
-    background: rgba(15, 15, 18, 0.95);
-    border: 1px solid var(--border);
+    background: rgba(15, 19, 38, 0.95);
+    border: 1px solid var(--border-accent);
     color: var(--text);
     border-radius: var(--radius-pill);
     font-size: 0.82rem;
     font-weight: 500;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 18px rgba(6, 212, 214, 0.18);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     opacity: 0;

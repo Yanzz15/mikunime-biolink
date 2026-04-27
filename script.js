@@ -25,7 +25,7 @@
             setTimeout(() => el.classList.add("is-in"), 140 + i * 90);
         });
 
-        /* Typewriter */
+        /* Typewriter — runs inside fixed-height pill, no layout shift */
         const typedEl = document.getElementById("typed");
         if (typedEl) {
             const phrases = [
@@ -66,7 +66,7 @@
             shareBtn.addEventListener("click", async () => {
                 const url = location.href;
                 const title = document.title;
-                const text = "Bio link Yanzz — Mikunime V5.";
+                const text = "Bio link Yanzz — MikuNime V5.";
                 try {
                     if (navigator.share) {
                         await navigator.share({ title, text, url });
